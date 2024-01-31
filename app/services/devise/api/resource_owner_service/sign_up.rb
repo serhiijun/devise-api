@@ -21,7 +21,11 @@ module Devise
         def create_resource_owner
           resource_owner = resource_class.new(params)
 
-          return Success(resource_owner) if resource_owner.save
+          if resource_owner.save
+            resource_owner.accounts.new(ownerable_type: resource_owner.class,
+                                        ownerable_id: resource_owner.id)
+            return Success(resource_owner)
+          end
 
           Failure(error: :resource_owner_create_error, record: resource_owner)
         end
