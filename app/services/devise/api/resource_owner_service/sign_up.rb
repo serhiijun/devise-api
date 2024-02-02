@@ -22,8 +22,9 @@ module Devise
           resource_owner = resource_class.new(params)
 
           if resource_owner.save
-            resource_owner.accounts.new(ownerable_type: resource_owner.class,
-                                        ownerable_id: resource_owner.id)
+            resource_owner.accounts.create!(ownerable_type: resource_owner.class,
+                                            ownerable_id: resource_owner.id,
+                                            user_id: resource_owner.id)
             return Success(resource_owner)
           end
 
