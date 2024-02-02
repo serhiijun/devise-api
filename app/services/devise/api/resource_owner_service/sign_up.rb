@@ -19,16 +19,19 @@ module Devise
         private
 
         def create_resource_owner
-          resource_owner = resource_class.new(params)
-
-          if resource_owner.save
-            resource_owner.accounts.create!(ownerable_type: resource_owner.class,
-                                            ownerable_id: resource_owner.id,
-                                            user_id: resource_owner.id)
-            return Success(resource_owner)
+          if resource_class.find_by(number: params[:number]).present?
+            return Failure(error: :resource_owner_create_error)
           end
 
-          Failure(error: :resource_owner_create_error, record: resource_owner)
+          resource_owner = resource_class.new(params)
+
+          return unless resource_owner.save
+
+          resource_owner.accounts.create!(ownerable_type: resource_owner.class,
+                                          ownerable_id: resource_owner.id,
+                                          user_id: resource_owner.id)
+
+          Success(resource_owner)
         end
 
         def call_create_devise_api_token_service(resource_owner)
