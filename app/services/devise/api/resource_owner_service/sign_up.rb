@@ -23,13 +23,10 @@ module Devise
             return Failure(error: :resource_owner_create_error)
           end
 
-          resource_owner = resource_class.new(params)
+          resource_owner = resource_class.new(number: params[:number],
+                                              password: params[:password])
 
           return unless resource_owner.save
-
-          resource_owner.accounts.create!(ownerable_type: resource_owner.class,
-                                          ownerable_id: resource_owner.id,
-                                          user_id: resource_owner.id)
 
           Success(resource_owner)
         end
