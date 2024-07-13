@@ -46,6 +46,8 @@ module Devise
               # username: resource_owner.username,
               # email: resource_owner.email,
               number: resource_owner.number,
+              is_removed: resource_owner.is_removed,
+              status: resource_owner.status,
               created_at: resource_owner.created_at,
               updated_at: resource_owner.updated_at,
               accounts: resource_owner.accounts
