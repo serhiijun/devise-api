@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/ClassLength
-module Api::V1::Devise
+module Devise
   module Api
     class TokensController < Devise.api.config.base_controller.constantize
       skip_before_action :verify_authenticity_token, raise: false
