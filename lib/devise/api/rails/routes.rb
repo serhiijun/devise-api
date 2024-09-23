@@ -9,20 +9,15 @@ module ActionDispatch
         controller = controllers.fetch(:tokens, 'devise/api/tokens')
         path = mapping.path_names.fetch(:tokens, 'tokens')
 
-        namespace :api do
-          namespace :v1 do
-            resource :tokens, only: [], controller: controller, path: path do
-              collection do
-                post :revoke, as: :revoke
-                post :refresh, as: :refresh
-                post :sign_up, as: :sign_up
-                post :sign_in, as: :sign_in
-                get :info, as: :info
-              end
-            end
+        resource :tokens, only: [], controller: controller, path: path do
+          collection do
+            post :revoke, as: :revoke
+            post :refresh, as: :refresh
+            post :sign_up, as: :sign_up
+            post :sign_in, as: :sign_in
+            get :info, as: :info
           end
         end
-
       end
     end
   end
